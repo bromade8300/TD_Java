@@ -3,6 +3,7 @@ package TD_3;
 import java.util.Scanner;
 
 public class PuissanceQuatre {
+
     static final int VIDE = 0;
     static final int ROUGE = 1;
     static final int JAUNE = 2;
@@ -11,7 +12,7 @@ public class PuissanceQuatre {
         int[][] grille = new int[largeur][hauteur];
         for (int i = 0; i < largeur; i++) {
             for (int j = 0; j < hauteur; j++) {
-                grille[i][j] = 0;
+                grille[i][j] = VIDE;
             }
         }
         return grille;
@@ -24,7 +25,7 @@ public class PuissanceQuatre {
                 int cellValue = grille[i][j];
                 switch (cellValue) {
                     case VIDE:
-                        System.out.print("||");
+                        System.out.print("| |");
                         break;
                     case ROUGE:
                         System.out.print("|R|");
@@ -137,15 +138,8 @@ public class PuissanceQuatre {
             if (grille[i][colonne] == 0) {
                 grille[i][colonne] = joueur;
 
-
-            for (int j = 0; j < i; j++) {
-                grille[j][colonne] = 7;
-                afficheGrille(grille);
-                grille[j][colonne] = 0;
-            }
-
             grille[i][colonne] = joueur;
-
+            afficheGrille(grille);
 
                 System.out.println("Jeton du joueur " + joueur + " placé en colonne " + colonne + ".");
                 return true;
@@ -157,30 +151,46 @@ public class PuissanceQuatre {
         return false; // Token can't be played
     }
 
-    public static int demanderColonne(){
-        Scanner sc  = new Scanner(System.in);
+    public static int demanderColonne(Scanner scanner){
+//        Scanner sc  = new Scanner(System.in);
         System.out.println("jouer dans la col n° ?");
-        int numColonne = sc.nextInt();
-        sc.close();
+        int numColonne = scanner.nextInt();
+//        sc.close();
         return numColonne-1;
     }
 
-    public static boolean tourJoueur(int [] [] grille, String nomJoueur, int couleur)  {
+    public static boolean tourJoueur(int [] [] grille, String nomJoueur, int couleur,Scanner scanner)  {
         boolean hasWin = false;
-        int numCol = demanderColonne();
+        int numCol = demanderColonne(scanner);
         if(!joueJeton(grille, numCol, couleur)){
-            numCol =   demanderColonne();
+            numCol =   demanderColonne(scanner);
         }
         hasWin = grilleGagnante(grille);
         return hasWin;
     }
 
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         int[][] test = nouvelleGrille(7, 6);
         afficheGrille(test);
+
+
+
         boolean hasWin = false;
+        int tourJoueur = ROUGE;
         do{
-            hasWin = tourJoueur(test,"antoine",1);
-        } while(hasWin);
+            hasWin = tourJoueur(test,"antoine",tourJoueur,scanner);
+            if(!hasWin){
+                switch(tourJoueur){
+                    case ROUGE:
+                        tourJoueur = JAUNE;
+                        break;
+                    case  JAUNE:
+                        tourJoueur = ROUGE;
+                            break;
+                }
+            }
+        } while(!hasWin);
+        scanner.close();
     }
 }
