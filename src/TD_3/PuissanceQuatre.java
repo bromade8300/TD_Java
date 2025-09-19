@@ -83,15 +83,15 @@ public class PuissanceQuatre {
 
         for (int i = 0; i <= rows - 4; i++) {
             for (int j = 0; j <= cols - 4; j++) {
-                int cptStreak = 0;
+                int consecutiveCount = 0;
                 for (int k = 0; k < 4; k++) {
                     if (grille[i + k][j + k] == joueur) {
-                        cptStreak++;
+                        consecutiveCount++;
                     } else {
-                        cptStreak = 0;
+                        consecutiveCount = 0;
                     }
                 }
-                if (cptStreak == 4) {
+                if (consecutiveCount == 4) {
                     return true;
                 }
             }
@@ -99,15 +99,15 @@ public class PuissanceQuatre {
 
         for (int i = 0; i <= rows - 4; i++) {
             for (int j = cols - 1; j >= 3; j--) {
-                int cptStreak = 0;
+                int consecutiveCount = 0;
                 for (int k = 0; k < 4; k++) {
                     if (grille[i + k][j - k] == joueur) {
-                        cptStreak++;
+                        consecutiveCount++;
                     } else {
-                        cptStreak = 0;
+                        consecutiveCount = 0;
                     }
                 }
-                if (cptStreak == 4) {
+                if (consecutiveCount == 4) {
                     return true;
                 }
             }
@@ -117,15 +117,15 @@ public class PuissanceQuatre {
     }
 
     public static boolean DroiteGagnante(int[] droite, int joueur) {
-        int cptStreak = 0;
+        int consecutiveCount = 0;
         for (int i = 0; i < droite.length; i++) {
             if (droite[i] == joueur) {
-                cptStreak++;
+                consecutiveCount++;
             } else {
-                cptStreak = 0;
+                consecutiveCount = 0;
             }
 
-            if (cptStreak == 4) {
+            if (consecutiveCount == 4) {
                 return true;
             }
         }
@@ -142,7 +142,7 @@ public class PuissanceQuatre {
 
         for (int i = grille.length - 1; i >= 0; i--) {
         	
-            if (grille[i][colonne] == 0) {
+            if (grille[i][colonne] == VIDE) {
             	// normal play
             	grille[i][colonne] = joueur;
                 grille[i][colonne] = joueur;
@@ -181,7 +181,7 @@ public class PuissanceQuatre {
         return hasWin;
     }
     
-    static void CycleParty(int[][]grille) {
+    static void PlayAParty(int[][]grille) {
         boolean hasWin = false;
         int tourJoueur = ROUGE;
         
@@ -206,7 +206,7 @@ public class PuissanceQuatre {
         int[][] grille = nouvelleGrille(7, 6);
         
         afficheGrille(grille);
-        CycleParty(grille);
+        PlayAParty(grille);
         
         scanner.close();
     }
