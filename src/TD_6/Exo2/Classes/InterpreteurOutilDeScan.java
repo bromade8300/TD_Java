@@ -9,8 +9,7 @@ public class InterpreteurOutilDeScan {
     private Panier convertTokenInPanier(StringEnJetons stringEnJetons){
         Panier panier = new Panier();
         for(Jeton jeton : stringEnJetons.getTokensString()){
-            Produit produit = new Produit();
-            produit.name = jeton.getContenu();
+            Produit produit = new Produit(jeton.getContenu());
             panier.addProduit(produit);
         }
         return panier;

@@ -3,10 +3,10 @@ package TD_6.Exo2.Classes;
 import java.util.Scanner;
 
 public class Produit {
-    String name;
+    private String name;
 
-    public void setName(String name) {
-        this.name = name;
+    public Produit(String name){
+        this.name=name;
     }
 
     public String getName() {
