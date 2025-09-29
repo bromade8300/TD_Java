@@ -19,7 +19,7 @@ public class main {
         wrongProducts.addProduit(produit);
         wrongProducts.addProduit(produit);
         String listProducts = scanner.nextLine();
-        InterpreteurOutilDeScan scan=new InterpreteurOutilDeScan();
+        InterpreteurOutilDeScan scan = new InterpreteurOutilDeScan();
         Panier panier = scan.interpreter(listProducts);
 
 
